@@ -6,7 +6,7 @@
 /*   By: alebross <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 18:20:11 by alebross          #+#    #+#             */
-/*   Updated: 2019/12/13 13:47:44 by alebross         ###   ########.fr       */
+/*   Updated: 2019/12/14 08:30:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	if (!stock)
 		stock = malloc(sizeof(char));
+/**/	printf("stock = %s\n", stock);
 	while (!ft_strchr(buff, '\n') && (ret = read(fd, buff, BUFFER_SIZE)))
 	{
 		buff[ret] ='\0';
