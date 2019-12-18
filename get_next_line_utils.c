@@ -6,7 +6,7 @@
 /*   By: alebross <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 18:22:06 by alebross          #+#    #+#             */
-/*   Updated: 2019/12/17 18:38:39 by alebross         ###   ########.fr       */
+/*   Updated: 2019/12/18 14:16:23 by alebross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
-int	ft_strlen(char *str)
+int		ft_strlen(char *str)
 {
 	int		i;
 

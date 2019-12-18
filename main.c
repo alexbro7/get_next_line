@@ -1,7 +1,13 @@
 #include <fcntl.h>
 #include "get_next_line.h"
 
-int		main(int ac, char **av)
+void	ft_putendl(char *s)
+{
+	write(1, s, ft_strlen(s));
+	write(1, "\n", 1); 
+}
+
+int		main()
 {
 	int fd;
 	char *line;
@@ -13,30 +19,11 @@ int		main(int ac, char **av)
 	{
 		if ((ret = get_next_line(fd, &line)))
 		{
-			printf("ret:%d--%s--\n", ret, line);
+			ft_putendl(line);
 			free(line);
 		}
 	}
-			printf("ret:%d--%s--\n", ret, line);
-			free(line);
+	ft_putendl(line);
+	free(line);
 	return (0);
 }
-/*
-int		main(int ac, char **av)
-{
-	int fd;
-	char *line;
-	const char filet[] = "__________________________________________________________________________________\n";
-	int ret;
-	int	i;
-
-	fd = open(av[1], O_RDONLY);
-	i = 1;
-	while ((ret = get_next_line(fd, &line)))
-	{
-		printf("ret: %d, line %d\n%s$\n%s", ret, i, line, filet);
-		i++;
-	}
-	printf("ret: %d, line %d\n%s$\n%s", ret, i, line, filet);
-	return (0);
-}*/

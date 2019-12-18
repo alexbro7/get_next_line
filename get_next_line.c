@@ -6,7 +6,7 @@
 /*   By: alebross <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 18:20:11 by alebross          #+#    #+#             */
-/*   Updated: 2019/12/18 10:34:53 by marvin           ###   ########.fr       */
+/*   Updated: 2019/12/18 14:12:26 by alebross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,17 @@ char	*ft_strjoin(char *s1, char *s2)
 
 char	*get_next_line2(int fd, char **line, char *stock, t_gnl *gnl)
 {
- 	gnl->i = 0;
+	while (!ft_strchr(stock, '\n')
+		&& (gnl->ret = read(fd, gnl->buff, BUFFER_SIZE)))
+	{
+		gnl->buff[gnl->ret] = '\0';
+		if (stock)
+			gnl->tmp = stock;
+		stock = ft_strjoin(stock, gnl->buff);
+		if (gnl->tmp)
+			free(gnl->tmp);
+	}
+	gnl->i = 0;
 	while (stock[gnl->i] && stock[gnl->i] != '\n')
 		gnl->i++;
 	*line = ft_substr(stock, 0, gnl->i);
@@ -93,7 +103,8 @@ int		get_next_line(int fd, char **line)
 	static char		*stock;
 	t_gnl			gnl;
 
-	if (fd <= 0 || !line || !(gnl.buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	if (fd <= 0 || !line
+		|| !(gnl.buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
 	gnl.ret = 1;
 	gnl.buff[0] = 0;
@@ -102,15 +113,6 @@ int		get_next_line(int fd, char **line)
 		if (!(stock = malloc(sizeof(char))))
 			return (-1);
 		stock[0] = 0;
-	}
-	while (!ft_strchr(stock, '\n') && (gnl.ret = read(fd, gnl.buff, BUFFER_SIZE)))
-	{
-		gnl.buff[gnl.ret] ='\0';
-		if(stock)
-			gnl.tmp = stock;
-		stock = ft_strjoin(stock, gnl.buff);
-		if (gnl.tmp)
-			free(gnl.tmp); 
 	}
 	stock = get_next_line2(fd, line, stock, &gnl);
 	if (!gnl.retval)
